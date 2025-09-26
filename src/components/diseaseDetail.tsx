@@ -38,62 +38,7 @@ interface DiseaseDetailProps {
   diseaseId: string
 }
 
-const mockDetailedData: Record<string, DiseaseDetailData> = {
-  "4": {
-    id: 4,
-    local_name: "Busuk Pelepah",
-    scientific_name: "Sheath Blight",
-    causative_organism: "Rhizoctonia solani",
-    host_plants: "Jagung, Padi",
-    symptoms: {
-      affected_parts: "Pelepah daun, batang bagian bawah, dan akar",
-      visual_characteristics: "Bercak coklat keabu-abuan dengan tepi yang jelas, berbentuk oval hingga memanjang",
-      progression_stages: "Dimulai dari pelepah daun bawah, menyebar ke atas, dapat menyebabkan rebah tanaman",
-    },
-    disease_cycle: {
-      spread_methods: "Spora jamur melalui angin, air hujan, dan kontak langsung",
-      environmental_conditions: "Kelembaban tinggi (>80%), suhu 25-30°C, curah hujan tinggi",
-      infection_stages: "Penetrasi → kolonisasi → sporulasi → penyebaran",
-    },
-    diagnosis: {
-      field_recognition: "Bercak coklat pada pelepah, miselium putih pada kondisi lembab",
-      laboratory_tests: "Isolasi jamur, identifikasi morfologi spora",
-    },
-    control: {
-      cultural_practices: "Rotasi tanaman, pengaturan jarak tanam, drainase yang baik, sanitasi lahan",
-      chemical_control: "Fungisida berbahan aktif propikonazol, tebukonazol, atau validamycin",
-      biological_control: "Trichoderma spp., Bacillus subtilis, atau Pseudomonas fluorescens",
-      monitoring: "Pemantauan rutin setiap 7-10 hari, terutama saat musim hujan",
-    },
-  },
-  "1": {
-    id: 1,
-    local_name: "Antraknosa",
-    scientific_name: "Anthracnose",
-    causative_organism: "Colletotrichum capsici",
-    host_plants: "Cabai, Tomat",
-    symptoms: {
-      affected_parts: "Buah, daun, dan batang",
-      visual_characteristics: "Bercak bulat berwarna coklat kehitaman dengan lingkaran konsentris",
-      progression_stages: "Bercak kecil → membesar → buah busuk dan gugur",
-    },
-    disease_cycle: {
-      spread_methods: "Percikan air hujan, serangga, dan alat pertanian",
-      environmental_conditions: "Kelembaban tinggi, suhu 20-30°C",
-      infection_stages: "Kontak → penetrasi → infeksi → sporulasi",
-    },
-    diagnosis: {
-      field_recognition: "Bercak coklat dengan massa spora berwarna orange-pink",
-      laboratory_tests: "Isolasi jamur, uji patogenisitas",
-    },
-    control: {
-      cultural_practices: "Sanitasi kebun, pemangkasan, pengaturan drainase",
-      chemical_control: "Fungisida mankozeb, klorotalonil, atau azoksistrobin",
-      biological_control: "Trichoderma harzianum, Bacillus subtilis",
-      monitoring: "Inspeksi mingguan, terutama pada buah muda",
-    },
-  },
-}
+
 
 function transformApiResponse(apiData: DiseaseDetailType): DiseaseDetailData {
   return {

@@ -1,45 +1,64 @@
 // API configuration and helper functions
 
-export interface Disease {
+export interface ApiResponse<T> {
+  success: boolean;
+  data: T;
+}
+export interface PlantDiseaseData {
+  plant: Plant;
+  diseases: Disease[];
+}
+export interface Plant {
   id: number
-  local_name: string
-  scientific_name: string
-  causative_organism: string
-  host_plants: string
-  created_at: string
+  name: string
+  scientificName: string
+  description: string
+  imageUrl: string
 }
 
-export interface DiseaseDetail extends Disease {
-  symptoms: Array<{
-    id: number
-    affected_parts: string
-    visual_characteristics: string
-    progression_stages: string
-  }>
-  disease_cycles: Array<{
-    id: number
-    spread_methods: string
-    environmental_conditions: string
-    infection_stages: string
-  }>
-  diagnoses: Array<{
-    id: number
-    field_recognition: string
-    laboratory_tests: string
-  }>
-  controls: Array<{
-    id: number
-    cultural_practices: string
-    chemical_control: string
-    biological_control: string
-    monitoring: string
-  }>
+export interface Disease {
+  id: number;
+  localName: string;
+  scientificName: string;
+  description: string;
+  causativeOrganism: string;
+}
+
+export interface DiseaseDetail {
+  id: number;
+  localName: string;
+  scientificName: string;
+  description: string;
+  causativeOrganism: string;
+  symptoms?: {
+    affected_parts: string;
+    visual_characteristics: string;
+    developingStage: string;
+  };
+  disease_cycles?: {
+    spread_method: string;
+    environmentalFactors: string;
+    favorableSeason: string;
+  };
+  diagnoses?: {
+    fieldRecognitionSteps: string;
+    keyIdentifiers: string;
+    differentialDiagnosis: string
+  };
+  controls?: {
+    controlType: string;
+    method: string;
+    description: string;
+    effectiveness: string;
+  };
 }
 
 // API functions
-export async function fetchDisease(): Promise<Disease[]> {
+export async function fetchAllPlants(): Promise<Plant[]> {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_PATH}/disease`)
+    const response = await fetch(`${import.meta.env.VITE_API_PATH}/plant`)
+    const responseBody: ApiResponse<Plant[]> = await response.json();
+    return responseBody.data;
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
@@ -50,9 +69,11 @@ export async function fetchDisease(): Promise<Disease[]> {
   }
 }
 
-export async function fetchDiseaseDetail(diseaseId: string): Promise<DiseaseDetail> {
+export async function fetchDiseasesByPlantId(plantId: string): Promise<Disease[]> {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_PATH}/diseases/${diseaseId}`)
+    const response = await fetch(`${import.meta.env.VITE_API_PATH}/disease/${plantId}`)
+    const responseBody: ApiResponse<PlantDiseaseData> = await response.json();
+    return responseBody.data.diseases;
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
@@ -63,9 +84,9 @@ export async function fetchDiseaseDetail(diseaseId: string): Promise<DiseaseDeta
   }
 }
 
-export async function searchDiseases(query: string): Promise<Disease[]> {
+export async function fetchDiseaseDetail(plantId: string, diseaseId: string): Promise<DiseaseDetail[]> {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_PATH}/diseases/search?q=${encodeURIComponent(query)}`)
+    const response = await fetch(`${import.meta.env.VITE_API_PATH}/disease/${plantId}/${diseaseId},`)
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
