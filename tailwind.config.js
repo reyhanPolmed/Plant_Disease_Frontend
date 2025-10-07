@@ -27,6 +27,19 @@ module.exports = {
     			sm: 'calc(var(--radius) - 4px)'
     		},
     		colors: {
+				primary: "#17cf17",
+        "background-light": "#f6f8f6",
+        "background-dark": "#112111",
+        "foreground-light": "#112111",
+        "foreground-dark": "#f6f8f6",
+        "card-light": "#ffffff",
+        "card-dark": "#1a2e1a",
+        "muted-light": "#6b7280",
+        "muted-dark": "#9ca3af",
+        "border-light": "#e5e7eb",
+        "border-dark": "#374151",
+        "input-light": "#f3f4f6",
+        "input-dark": "#1f2937",
     			background: 'hsl(var(--background))',
     			foreground: 'hsl(var(--foreground))',
     			card: {
@@ -37,10 +50,10 @@ module.exports = {
     				DEFAULT: 'hsl(var(--popover))',
     				foreground: 'hsl(var(--popover-foreground))'
     			},
-    			primary: {
-    				DEFAULT: 'hsl(var(--primary))',
-    				foreground: 'hsl(var(--primary-foreground))'
-    			},
+    			// primary: {
+    			// 	DEFAULT: 'hsl(var(--primary))',
+    			// 	foreground: 'hsl(var(--primary-foreground))'
+    			// },
     			secondary: {
     				DEFAULT: 'hsl(var(--secondary))',
     				foreground: 'hsl(var(--secondary-foreground))'

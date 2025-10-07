@@ -5,14 +5,19 @@ import { useParams } from "react-router-dom";
 // import { useRouter } from "next/navigation"
 import { Card, CardContent } from "@/components/ui/card";
 import { fetchDiseasesByPlantId, type Disease } from "../lib/api";
-
+import { useNavigate } from "react-router-dom";
 
 export default function DiseaseGrid() {
   const { plantId } = useParams();
   const [diseases, setDiseases] = useState<Disease[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate()
   // const router = useRouter()
+
+  const handleDiseaseClick = (diseaseId: number) => {
+    navigate(`/disease-detail/${plantId}/${diseaseId}`);
+  }
 
   useEffect(() => {
     const fetchDiseases = async () => {
@@ -88,7 +93,7 @@ export default function DiseaseGrid() {
         <Card
           key={disease.id}
           className="group cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl border-border bg-card overflow-hidden"
-          // onClick={() => handleDiseaseClick(disease.id)}
+          onClick={() => handleDiseaseClick(disease.id)}
         >
           <div className="h-32 bg-gradient-to-br from-primary/20 to-accent/20 relative overflow-hidden">
             <img

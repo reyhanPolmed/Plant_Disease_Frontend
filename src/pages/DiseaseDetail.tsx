@@ -35,7 +35,7 @@ export default function DiseaseDetailPage({ params }: PageProps) {
             <span>Detail Penyakit</span>
           </div>
         </div>
-        <DiseaseDetail plantId={params.plantId} diseaseId={params.diseaseId} />
+        <DiseaseDetail />
       </div>
     </main>
   )
