@@ -13,7 +13,7 @@ export interface Plant {
   name: string;
   scientificName: string;
   description: string;
-  imageUrl: string;
+  urlPhoto: string
 }
 
 export interface Disease {
@@ -22,6 +22,7 @@ export interface Disease {
   scientificName: string;
   description: string;
   causativeOrganism: string;
+  urlPhoto: string
 }
 
 export interface DiseaseDetail {
@@ -30,7 +31,7 @@ export interface DiseaseDetail {
   scientificName: string;
   description: string;
   causativeOrganism: string;
-  symptoms?: [
+  symptoms?: 
     {
       affectedParts: string;
       id: number;
@@ -44,7 +45,7 @@ export interface DiseaseDetail {
       ];
       visualCharacteristic: [];
     }
-  ];
+  ;
   cycle?: {
     id: string;
     environmentalFactors: string;

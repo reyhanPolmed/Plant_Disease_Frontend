@@ -1,42 +1,14 @@
-import DiseaseDetail from "../components/diseaseDetail"
-
-const plantNames: Record<string, string> = {
-  cabai: "Cabai",
-  jagung: "Jagung",
-  tomat: "Tomat",
-  kentang: "Kentang",
-  kunyit: "Kunyit",
-  bawang: "Bawang",
-}
-
-interface PageProps {
-  params: {
-    plantId: string
-    diseaseId: string
-  }
-}
-
-export default function DiseaseDetailPage({ params }: PageProps) {
-  const plantName = plantNames[params.plantId]
-
+// import { diseases, type Disease } from "../data/Diseases"
+import React from "react";
+import { DiseaseDetail } from "@/components/disease/disease-detail"
+import { useParams } from "react-router-dom";
+export const DiseaseDetailNew : React.FC = () => {
+    const { plantId } = useParams();
+  const { diseaseId } = useParams();
+  // const disease: Disease | undefined = diseases["busuk-pelepah-jagung"]
   return (
-    <main className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <div className="flex items-center gap-2 text-muted-foreground mb-4">
-            <a href="/" className="hover:text-primary transition-colors">
-              Beranda
-            </a>
-            <span>/</span>
-            <a href={`/plants/${params.plantId}/diseases`} className="hover:text-primary transition-colors">
-              {plantName}
-            </a>
-            <span>/</span>
-            <span>Detail Penyakit</span>
-          </div>
-        </div>
-        <DiseaseDetail />
-      </div>
+    <main className="min-h-dvh">
+      <DiseaseDetail plantId={plantId} diseaseId={diseaseId}/>
     </main>
   )
 }

@@ -1,19 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import DiseaseDetail from "./components/diseaseDetail";
-import DiseasesPage from "./pages/DiseasePage";
-import HomePage from "./pages/Home";
-import Card from "./components/card";
-import CardDisease from "./components/cardDisease";
+import HomePage from "./pages/HomePage";
+import CardDisease from "./pages/DiseaseList";
+import {DiseaseDetailNew} from "./pages/DiseaseDetail";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/disease/:plantId" element={<DiseasesPage />} />
-        <Route path="/disease-detail/:plantId/:diseaseId" element={<DiseaseDetail />} />
-        <Route path="/card" element={<Card />} />
-        <Route path="/card-disease" element={<CardDisease />} />
+        <Route path="/disease-detail/:plantId/:diseaseId" element={<DiseaseDetailNew />} />
+        <Route path="/card-disease/:plantId" element={<CardDisease />} />
       </Routes>
     </Router>
   );
