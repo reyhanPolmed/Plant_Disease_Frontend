@@ -14,7 +14,7 @@ export function DetailTabs({ tabs, className }: { tabs: Tab[]; className?: strin
 
   return (
     <div className={cn("w-full", className)}>
-      <div className="sticky top-0 z-10 -mx-4 border-b bg-background/80 px-4 backdrop-blur">
+      <div className="top-0 z-10 -mx-4 border-b bg-background/80 px-4 backdrop-blur">
         <div role="tablist" aria-label="Detail Penyakit" className="flex gap-2 overflow-x-auto py-2">
           {tabs.map((t) => {
             const isActive = t.id === active

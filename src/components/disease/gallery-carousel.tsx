@@ -2,20 +2,21 @@
 
 import * as React from "react"
 import { cn } from "@/lib/utils"
-
-type ImgItem = {
-  src: string
-  alt: string
-  caption?: string
-}
+// import cabai from "../../assets/cabai.png"
+// type ImgItem = {
+//   src: string
+//   alt: string
+//   caption?: string
+// }
 
 export function GalleryCarousel({
   items,
   className,
 }: {
-  items: ImgItem[]
+  items: string
   className?: string
 }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [index, setIndex] = React.useState(0)
 
   const go = (dir: number) => {
@@ -32,13 +33,13 @@ export function GalleryCarousel({
   }, [])
 
   if (!items?.length) return null
-
+  console.log("gambar: " + items)
   return (
     <section className={cn("rounded-xl border bg-card", className)}>
-      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-t-xl bg-muted">
+      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-muted">
         <img
-          src={items[index].src || "/placeholder.svg"}
-          alt={items[index].alt}
+          src={items}
+          alt="gambar penyakit tanaman"
           className="h-full w-full object-cover"
           loading="lazy"
         />
@@ -62,14 +63,14 @@ export function GalleryCarousel({
             <path fill="currentColor" d="M10 6l-1.41 1.41L13.17 12l-4.58 4.59L10 18l6-6z" />
           </svg>
         </button>
-        {items[index]?.caption ? (
+        {/* {items[index]?.caption ? (
           <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background to-transparent px-4 py-3 text-sm text-foreground">
             {items[index].caption}
           </figcaption>
-        ) : null}
+        ) : null} */}
       </div>
 
-      <div className="flex items-center justify-center gap-2 p-3">
+      {/* <div className="flex items-center justify-center gap-2 p-3">
         {items.map((_, i) => (
           <button
             key={i}
@@ -82,7 +83,7 @@ export function GalleryCarousel({
             )}
           />
         ))}
-      </div>
+      </div> */}
     </section>
   )
 }

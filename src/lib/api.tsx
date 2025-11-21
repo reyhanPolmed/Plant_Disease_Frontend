@@ -16,6 +16,16 @@ export interface Plant {
   urlPhoto: string
 }
 
+export interface Login {
+  user: string;
+  token: string;
+}
+
+export interface Register {
+  user: string;
+  token: string;
+}
+
 export interface Disease {
   id: number;
   localName: string;
@@ -31,10 +41,12 @@ export interface DiseaseDetail {
   scientificName: string;
   description: string;
   causativeOrganism: string;
+  urlPhoto: string;
   symptoms?: 
     {
-      affectedParts: string;
       id: number;
+      affectedParts: string;
+      description: string
       symptomProggression: [
         {
           description: string;
@@ -53,6 +65,7 @@ export interface DiseaseDetail {
     infectionStage: [
       {
         description: string;
+        stage: string;
         fieldRecognitionSteps: string;
         id: number;
         order: number;
@@ -132,3 +145,64 @@ export async function fetchDiseaseDetail(
     throw error;
   }
 }
+export async function fetchLogin(
+  email: string,
+  password: string
+): Promise<Login> {
+  try {
+const response = await fetch(`${import.meta.env.VITE_API_PATH}/auth/login`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    email: email,
+    password: password,
+  }),
+});
+
+    const responseBody: ApiResponse<Login> = await response.json();
+    return responseBody.data;
+    // if (!response.ok) {
+    //   throw new Error(`HTTP error! status: ${response.status}`);
+    // }
+    return await response.json();
+  } catch (error) {
+    console.error("Error searching diseases:", error);
+    throw error;
+  }
+}
+
+export async function fetchRegister(
+  firstname: string,
+  lastname: string,
+  email: string,
+  password: string
+): Promise<Register> {
+  try {
+const response = await fetch(`${import.meta.env.VITE_API_PATH}/auth/register`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    firstname,
+    lastname,
+    email: email,
+    password: password,
+  }),
+});
+
+    const responseBody: ApiResponse<Register> = await response.json();
+    return responseBody.data;
+    // if (!response.ok) {
+    //   throw new Error(`HTTP error! status: ${response.status}`);
+    // }
+    return await response.json();
+  } catch (error) {
+    console.error("Error searching diseases:", error);
+    throw error;
+  }
+}
+
+

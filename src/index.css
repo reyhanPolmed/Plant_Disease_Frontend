@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 body {
-  @apply font-roboto-mono;
+  @apply font-poppins;
 }
 
-@layer components {
+/* @layer components {
   .neobrutalism-border {
     @apply border-[4px] border-black;
   }
-}
+} */
 
 .material-symbols-outlined {
   font-variation-settings:
@@ -25,7 +25,7 @@ body {
 @layer base {
   :root {
 
-    --background: 0 0% 100%;
+    /* --background: 0 0% 100%; */
 
     --foreground: 0 0% 3.9%;
 
@@ -133,7 +133,7 @@ body {
   * {
     @apply border-border;
   }
-  body {
+  /* body {
     @apply bg-background text-foreground;
-  }
+  } */
 }

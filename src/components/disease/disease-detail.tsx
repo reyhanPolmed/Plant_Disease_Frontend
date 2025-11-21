@@ -1,12 +1,12 @@
-"use client"
-import { Breadcrumbs } from "./breadcrumbs"
-import { DetailTabs } from "./detail-tabs"
+"use client";
+import { Breadcrumbs } from "./breadcrumbs";
+// import { DetailTabs } from "./detail-tabs"
 import React from "react";
-// import { GalleryCarousel } from "./gallery-carousel"
+import { GalleryCarousel } from "./gallery-carousel";
 // import type { Disease } from "../../data/Diseases"
 
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 // import { Badge } from "@/components/ui/badge";
 import {
   fetchDiseaseDetail,
@@ -17,7 +17,10 @@ interface DiseaseDetailProps {
   plantId?: string;
   diseaseId?: string;
 }
-export const DiseaseDetail: React.FC<DiseaseDetailProps> = ({ plantId, diseaseId }) => {
+export const DiseaseDetail: React.FC<DiseaseDetailProps> = ({
+  plantId,
+  diseaseId,
+}) => {
   const [disease, setDisease] = useState<DiseaseDetailType | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +30,7 @@ export const DiseaseDetail: React.FC<DiseaseDetailProps> = ({ plantId, diseaseId
       try {
         setError(null);
         const apiData = await fetchDiseaseDetail(plantId!, diseaseId!);
-        console.log("api data: ",apiData)
+        console.log("api data: ", apiData);
         // const transformedData = transformApiResponse(apiData);
         setDisease(apiData);
       } catch (error) {
@@ -41,7 +44,7 @@ export const DiseaseDetail: React.FC<DiseaseDetailProps> = ({ plantId, diseaseId
     fetchDiseaseDetailData();
   }, [diseaseId]);
 
-  console.log("disease: ",disease)
+  console.log("disease: ", disease);
 
   if (loading) {
     return (
@@ -101,13 +104,21 @@ export const DiseaseDetail: React.FC<DiseaseDetailProps> = ({ plantId, diseaseId
   return (
     <div className="mx-auto max-w-5xl px-4 py-8">
       <Breadcrumbs
-        items={[{ label: "Beranda", href: "/" }, { label: "Penyakit", href: "/penyakit" }, { label: disease.localName }]}
+        items={[
+          { label: "Beranda", href: "/" },
+          { label: "Penyakit", href: "/penyakit" },
+          { label: disease.localName },
+        ]}
         className="mb-4"
       />
 
       <header className="mb-6">
-        <h1 className="text-balance text-3xl font-bold leading-tight tracking-tight md:text-4xl">{disease.localName}</h1>
-        <p className="mt-2 max-w-3xl text-pretty text-muted-foreground">{disease.description}</p>
+        <h1 className="text-balance text-3xl font-bold leading-tight tracking-tight md:text-4xl">
+          {disease.localName}
+        </h1>
+        <p className="mt-2 max-w-3xl text-pretty text-muted-foreground">
+          {disease.description}
+        </p>
 
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-secondary px-3 py-1 text-xs text-secondary-foreground">
@@ -122,86 +133,64 @@ export const DiseaseDetail: React.FC<DiseaseDetailProps> = ({ plantId, diseaseId
         </div>
       </header>
 
-      <DetailTabs
-        tabs={[
-          {
-            id: "gejala",
-            label: "Gejala Visual",
-            content: (
-              <div className="space-y-6">
-                <div>
-                  <h2 className="text-lg font-semibold">Galeri Gejala</h2>
-                  {/* <GalleryCarousel items={disease.gallery} className="mt-3" /> */}
-                </div>
-                <div className="rounded-xl border bg-card p-5">
-                  {/* <h3 className="mb-2 text-base font-semibold">Deskripsi Gejala</h3>
+{/* content */}
+        <main className="flex flex-col gap-10">
+      <div className="space-y-6">
+        <div>
+          <h2 className="text-lg font-semibold">Galeri Gejala</h2>
+          <GalleryCarousel items={disease.urlPhoto} className="mt-3" />
+        </div>
+        <div className="rounded-xl border bg-card p-5">
+          {/* <h3 className="mb-2 text-base font-semibold">Deskripsi Gejala</h3>
                   <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
                     {disease.symptoms.map((s, i) => (
                       <li key={i}>{s}</li>
                     ))}
                   </ul> */}
-                  <div className="mt-4">
-                    <h4 className="mb-1 font-medium">Perkembangan</h4>
-                    <ol className="list-decimal space-y-1 pl-5 text-sm text-muted-foreground">
-                      {disease.symptoms?.symptomProggression.map((s) => (
-                        <li>{s.description}</li>
-                      ))}
-                    </ol>
-                  </div>
-                </div>
-              </div>
-            ),
-          },
-          {
-            id: "informasi",
-            label: "Informasi Rinci",
-            content: (
-              <div className="grid gap-6 md:grid-cols-2">
-                <div className="rounded-xl border bg-card p-5">
-                  <h3 className="mb-2 text-base font-semibold">Siklus & Penyebaran</h3>
-                  <p className="text-sm text-muted-foreground">{disease.cycle?.spreadMethod}</p>
-                </div>
-                <div className="rounded-xl border bg-card p-5">
-                  <h3 className="mb-2 text-base font-semibold">Kondisi Lingkungan</h3>
-                  <p className="text-sm text-muted-foreground">{disease.cycle?.environmentalFactors}</p>
-                </div>
-                <div className="rounded-xl border bg-card p-5 md:col-span-2">
+          <div className="mt-4">
+            <h4 className="mb-1 font-semibold">Gejala</h4>
+            <p>{disease.symptoms?.description}</p>
+          </div>
+        </div>
+      </div>
+
+        <div className="rounded-xl border bg-card p-5">
+          <h3 className="mb-2 text-base font-semibold">Siklus & Penyebaran</h3>
+          <p className="text-sm">
+            {disease.cycle?.spreadMethod}
+          </p>
+        </div>
+
+
+        <div className="rounded-xl border bg-card p-5">
+          <h3 className="mb-2 text-base font-semibold">Kondisi Lingkungan</h3>
+          <p className="text-sm">
+            {disease.cycle?.environmentalFactors}
+          </p>
+        </div>
+        {/* <div className="rounded-xl border bg-card p-5 md:col-span-2">
                   <h3 className="mb-2 text-base font-semibold">Tahap Infeksi</h3>
                   <ol className="list-decimal space-y-1 pl-5 text-sm text-muted-foreground">
                     {disease.cycle?.infectionStage.map((e, i) => (
-                      <li key={i}>{e.fieldRecognitionSteps}: {e.description}</li>
+                      <li key={i}>{e.stage}: {e.description}</li>
                     ))}
                   </ol>
-                </div>
-              </div>
-            ),
-          },
-          {
-            id: "pengendalian",
-            label: "Pengendalian",
-            content: (
-              <div className="space-y-6">
-                <div className="rounded-xl border bg-card p-5">
-                  <h3 className="mb-2 text-base font-semibold">Diagnosis Lapangan</h3>
-                  <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
-                    {disease.diagnosis?.map((d) => (
-                      <li key={d.order}>{d.fieldRecognitionSteps}: {d.description}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="rounded-xl border bg-card p-5">
-                  <h3 className="mb-2 text-base font-semibold">Kultur Teknis (Pencegahan)</h3>
-                  <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
-                    {disease.controls?.map((d, i) => (
-                      <li key={i}>{d.controlType} : {d.description}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ),
-          },
-        ]}
-      />
+                </div> */}
+
+      <div className="space-y-6">
+        <div className="rounded-xl border bg-card p-5">
+          <h3 className="mb-2 text-base font-semibold">
+            Kultur Teknis (Pencegahan)
+          </h3>
+          <ul className="list-disc space-y-1 pl-5 text-sm">
+            {disease.controls?.map((d, i) => (
+              <li key={i}>{d.description}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+        </main>
     </div>
-  )
-}
+  );
+};
