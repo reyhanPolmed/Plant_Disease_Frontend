@@ -1,7 +1,33 @@
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
+import { fetchLogin } from "@/lib/api";
 import herologin from "../assets/heroLogin.jpg";
+import { useNavigate } from "react-router-dom";
+import { setCredential } from "../features/user/AuthSlice";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 const Login = () => {
+    const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
+  
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+    const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    // Authentication logic goes here
+    const response = await fetchLogin(email, password)
+    const responseBody = await response
+    console.log("response", responseBody)
+    if(responseBody) {
+        dispatch(setCredential({...responseBody}))
+        // showMessage("Login berhasil! (Ini hanya demo)");
+        navigate('/')
+    } else {
+        setMessage("login gagal!")
+    }
+  };
   return (
     <div className="w-full h-screen flex gap-20 justify-center p-4">
       {/* image */}
@@ -19,8 +45,9 @@ const Login = () => {
       </div>
 
       {/* form input */}
-      <div className="w-[450px] mt-5">
+      <form onSubmit={handleSubmit} className="w-[450px] mt-5">
         <div className="py-[30px]">
+            <p>{message}</p>
           <p className="font-medium text-lg">Plant Shop</p>
           <h2 className="font-bold text-2xl">Sign In</h2>
           <p className="font-light text-sm">
@@ -33,6 +60,8 @@ const Login = () => {
             <p className="text-sm font-normal mb-2">email</p>
             <input
               type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter Email"
               className="rounded-[50px] outline outline-1 px-5 py-2 text-sm w-full"
             />
@@ -42,6 +71,8 @@ const Login = () => {
             <p className="text-sm font-normal mb-2">password</p>
             <input
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter Password"
               className="rounded-[50px] outline outline-1 px-5 py-2 text-sm w-full"
             />
@@ -58,7 +89,7 @@ const Login = () => {
             </p>
 
           </div>
-          <button className="outline outline-1 rounded-full w-full h-9 bg-[#0D492D] text-white">
+          <button type="submit" className="outline outline-1 rounded-full w-full h-9 bg-[#0D492D] text-white">
             Sign In
           </button>
           <div className="flex justify-center items-center gap-2">
@@ -79,7 +110,7 @@ const Login = () => {
             <span className="text-blue-600">Sign Up</span>
           </p>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

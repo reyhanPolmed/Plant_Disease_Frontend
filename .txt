@@ -1,3 +1,9 @@
 buat fetch jenis penyakit untuk backend, sesuaikan dengan disease type
 
 buat fetch jenis tanaman untuk backend
+
+bikin fungsi register
+
+bikin logout
+
+buat pop up ketika user klik wishlist dan cart

@@ -17,8 +17,8 @@ export interface Plant {
 }
 
 export interface Login {
-  user: string;
-  token: string;
+    user: string;
+    token: string;
 }
 
 export interface Register {

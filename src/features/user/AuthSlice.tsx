@@ -1,22 +1,20 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 // Define the types for your state
-interface User {
-    id: string; 
-    username: string;
-}
+// interface User {
+//     id: string; 
+//     username: string;
+// }
 
 interface AuthState {
-    user: User | null;
+    user: string | null;
     token: string | null;
 }
 
 // Define the type for the payload of the setCredential action
 interface SetCredentialPayload {
-    data: {
         token: string;
-        user: User;
-    };
+        user: string;
 }
 
 // Set the initial state with the defined type
@@ -30,9 +28,11 @@ const authSlice = createSlice({
     initialState, // The type is inferred from here
     reducers: {
         setCredential: (state, action: PayloadAction<SetCredentialPayload>) => {
-            const { data } = action.payload;
+            console.log("data payload reducer", action.payload);
+            const data = action.payload;
+            console.log("data", data)
             state.token = data.token;
-            state.user = data.user;
+            state.user = data.user
         },
         logOut: (state) => {
             state.token = null;
