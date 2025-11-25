@@ -10,15 +10,20 @@ import { selectCurrentUser } from "@/features/user/AuthSlice";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { logOut } from "@/features/user/AuthSlice";
+import { useNavigate } from "react-router-dom";
 type PopupLogoutPromptProps = {
   onOpen: () => void;
 };
 export default function AvatarMenu({ onOpen }: PopupLogoutPromptProps) {
   const user = useSelector(selectCurrentUser);
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logOut());
     onOpen();
+          setTimeout(() => {
+        navigate("/");
+      }, 1000);
   };
   return (
     <DropdownMenu>

@@ -22,9 +22,9 @@ export default function LoginSuccess({ isOpen, onClose }: LoginSuccessProps) {
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-white rounded-xl shadow-lg px-6 py-4 text-center w-64 animate-fadeIn">
         <h3 className="text-lg font-semibold text-green-600">
-          Berhasil Logout
+          Berhasil Login
         </h3>
-        <p className="text-sm text-gray-600 mt-1">Sampai jumpa kembali 😊</p>
+        <p className="text-sm text-gray-600 mt-1">Selamat datang kembali! 😊</p>
       </div>
     </div>
   );

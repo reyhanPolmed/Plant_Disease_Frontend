@@ -3,11 +3,12 @@ buat fetch jenis tanaman untuk backend
 
 bikin fungsi register (x)
 bikin pop up berhasil register (x)
-bikin logout (x)
+bikin pop up login(finish)
+bikin logout (finish)
 buat pop up ketika user klik wishlist dan cart ( finish )
 
 -- fungsi pembelian --
-bikin cart page ( x )
+bikin cart page ( finish )
 bikin katalog ( x )
 bikin pop up tambah kekeranjang (x)
 

@@ -38,6 +38,7 @@ const Header: React.FC = () => {
     }
   };
   console.log(user);
+  
 const handleOpenPopup = () => {
   setOpen(true);
 };
