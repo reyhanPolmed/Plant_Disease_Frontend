@@ -6,6 +6,7 @@ import Layout from "./components/layout/Layout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import RequireAuth from "./components/RequireAuth";
+import Cart from "./pages/Cart.";
 function App() {
   return (
     <Router>
@@ -24,6 +25,7 @@ function App() {
               element={<DiseaseDetailNew />}
             />
             <Route path="/card-disease/:plantId" element={<CardDisease />} />
+            <Route path="/cart" element={<Cart />} />
           </Route>
         </Route>
       </Routes>

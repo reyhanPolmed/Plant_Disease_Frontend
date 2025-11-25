@@ -1,9 +1,18 @@
 buat fetch jenis penyakit untuk backend, sesuaikan dengan disease type
-
 buat fetch jenis tanaman untuk backend
 
-bikin fungsi register
+bikin fungsi register (x)
+bikin pop up berhasil register (x)
+bikin logout (x)
+buat pop up ketika user klik wishlist dan cart ( finish )
 
-bikin logout
+-- fungsi pembelian --
+bikin cart page ( x )
+bikin katalog ( x )
+bikin pop up tambah kekeranjang (x)
 
-buat pop up ketika user klik wishlist dan cart
+-- proses pembayaran --
+buat page checkout (x)
+buat page pending proses (x)
+buat page proses pembayaran terkonfirmasi (x)
+buat page tracking pesanan (x)

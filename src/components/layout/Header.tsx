@@ -6,17 +6,43 @@ import { selectCurrentUser } from "@/features/user/AuthSlice";
 import { useSelector } from "react-redux";
 import React from "react";
 import { Link } from "react-router-dom";
+import PopupLoginPrompt from "../PopUpLogin";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AvatarMenu from "../AvatarMenu";
+import LogoutPopup from "../PopUpLogout";
 // import { Link } from "react-router-dom"
 // import { useDispatch } from "react-redux"
 // import { logOut } from "../../features/user/AuthSlice"
 const Header: React.FC = () => {
   const user = useSelector(selectCurrentUser);
+  const [showPopup, setShowPopup] = useState(false);
+  const [open, setOpen] = useState(false);
+  // const isAuthenticated = false;  // ganti dengan logic auth kamu
+  const navigate = useNavigate()
+  const handleOpenChart = () => {
+    if (user) {
+      setShowPopup(false);
+      navigate('/cart')
+    } else {
+      setShowPopup(true)
+    }
+  };
+
+  const handleOpenWishlist = () => {
+    if (user) {
+      setShowPopup(false);
+      // navigasi ke wishlist
+    } else {
+      setShowPopup(true)
+    }
+  };
   console.log(user);
-  // const dispatch = useDispatch()
-  // const handleLogout = () => {
-  //     dispatch(logOut())
-  // }
+const handleOpenPopup = () => {
+  setOpen(true);
+};
   return (
+    <>
     <header className="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-border-light dark:border-border-dark">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -60,12 +86,12 @@ const Header: React.FC = () => {
               <p>SEARCH</p>
             </button>
             {/* wishlist */}
-            <button className="flex items-center gap-2 font-medium text-[13px]">
+            <button className="flex items-center gap-2 font-medium text-[13px]" onClick={handleOpenWishlist}>
               {<GoHeart />}
               <p>WISHLIST</p>
             </button>
             {/* cart */}
-            <button className="flex items-center gap-2 font-medium text-[13px]">
+            <button className="flex items-center gap-2 font-medium text-[13px]" onClick={handleOpenChart}>
               {<LiaShoppingBasketSolid />}
               <p>CART</p>
             </button>
@@ -75,21 +101,9 @@ const Header: React.FC = () => {
                   </span>
                 </button> */}
             {user ? (
-              <button>
-                <div
-                  // 3. Kelas Tailwind CSS tetap sama seperti pada HTML asli
-                  className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-                  // 4. Atribut 'style' diubah menjadi objek JavaScript.
-                  //    Properti CSS 'background-image' diubah menjadi camelCase 'backgroundImage'.
-                  style={{
-                    backgroundImage: `url("https://lh3.googleusercontent.com/aida-public/AB6AXuDOwBL-ofY2S6Dohpxtezi9F0iKlgtnitrL5XY3pSbRj61yG0CzTDPVWj1h1HT6f-qS-cHYjVhpX3dWjIeKDJhpCtC1j_qjo5IBm6Z-V1BMqs1F08goAwf7AgpjSjGpxowBl2bwO5Uohq7Gt-E4fy4aV6akJEiNKRyC7xMS6EI6-EDcoMkU8zxvh8JdYAD6OuyceIcfsTV87snKC_1nNXkorWPFIYer2RiGfb-zX0TJfC7ty6mhE25wGnwjp-LZIIJZrGWLMr4a1ck")`,
-                  }}
-                >
-                  {/* Konten di dalam div (jika ada) */}
-                </div>
-              </button>
+              <AvatarMenu onOpen = {handleOpenPopup}/>
             ) : (
-              <Link to={"/login"} className="font-medium text-[13px] px-8 py-1 text-white bg-[#16A34A] hover:opacity-[0.8]">
+              <Link to={"/login"} className="font-medium text-[13px] px-8 py-1 text-white bg-[#004e1d] hover:opacity-[0.8]">
                   login
               </Link>
             )}
@@ -97,6 +111,9 @@ const Header: React.FC = () => {
         </div>
       </div>
     </header>
+    <div>{showPopup && <PopupLoginPrompt onClose={() => setShowPopup(false)} />}</div>
+    <LogoutPopup isOpen={open} onClose={() => setOpen(false)} />
+    </>
   );
 };
 

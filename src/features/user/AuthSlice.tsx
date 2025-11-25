@@ -1,20 +1,20 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-
+import type { RootState } from "../store";
 // Define the types for your state
-// interface User {
-//     id: string; 
-//     username: string;
-// }
+interface User {
+    id: string; 
+    firstName: string | null;
+}
 
 interface AuthState {
-    user: string | null;
+    user: User | null;
     token: string | null;
 }
 
 // Define the type for the payload of the setCredential action
 interface SetCredentialPayload {
         token: string;
-        user: string;
+        user: User;
 }
 
 // Set the initial state with the defined type
@@ -46,6 +46,6 @@ const authSlice = createSlice({
 export const { setCredential, logOut } = authSlice.actions;
 
 // Selector function with proper typing
-export const selectCurrentUser = (state: { auth: AuthState }) => state.auth.user;
+export const selectCurrentUser = (state: RootState) => state.persistedReducer.auth.user;
 
 export default authSlice.reducer;
