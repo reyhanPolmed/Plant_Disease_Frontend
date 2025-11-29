@@ -7,6 +7,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import RequireAuth from "./components/RequireAuth";
 import Cart from "./pages/Cart.";
+import ProductCatalog from "./components/catalogProduk/ProductCatalog";
+import ProductDetailPage from "./components/catalogProduk/ProductDetail";
 function App() {
   return (
     <Router>
@@ -26,6 +28,8 @@ function App() {
             />
             <Route path="/card-disease/:plantId" element={<CardDisease />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/product" element={<ProductCatalog />} />
+            <Route path="/products/:productId" element={<ProductDetailPage />} />
           </Route>
         </Route>
       </Routes>

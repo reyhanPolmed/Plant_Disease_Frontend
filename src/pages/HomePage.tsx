@@ -2,7 +2,7 @@ import { fetchAllPlants, type Plant } from "@/lib/api";
 import { Card } from "@/components/ui/card";
 import { Leaf } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // import cabai from "../assets/cabai.png";
 const HomePage = () => {
@@ -33,6 +33,33 @@ const HomePage = () => {
   };
   return (
     <div className="items-center justify-center min-h-screen">
+      <Link to={"/product"}
+      className="fixed bottom-5 right-5 z-50 flex items-center gap-2 px-4 py-3 bg-primary text-white font-medium rounded-full shadow-xl hover:scale-105 active:scale-95 transition-all"
+    >
+      {/* Ikon keranjang */}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3 3h2l.4 2M7 13h10l3-8H6.4"
+        />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M7 13L5.6 6M16 21a1 1 0 11-2 0 1 1 0 012 0zM9 21a1 1 0 11-2 0 1 1 0 012 0z"
+        />
+      </svg>
+
+      <span>Belanja</span>
+    </Link>
+
       <div>
         <div
           className="flex min-h-screen flex-col gap-8 items-center justify-center bg-cover bg-center"
