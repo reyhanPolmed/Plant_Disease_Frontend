@@ -13,17 +13,22 @@ export interface Plant {
   name: string;
   scientificName: string;
   description: string;
-  urlPhoto: string
+  imageUrl: string;
 }
 
 export interface Login {
-    user: string;
-    token: string;
+  user: string;
+  token: string;
 }
 
 export interface Register {
   user: string;
   token: string;
+}
+
+export interface Interactions {
+  success: string;
+  message: string;
 }
 
 export interface Disease {
@@ -32,7 +37,7 @@ export interface Disease {
   scientificName: string;
   description: string;
   causativeOrganism: string;
-  urlPhoto: string
+  urlPhoto: string;
 }
 
 export interface DiseaseDetail {
@@ -42,22 +47,20 @@ export interface DiseaseDetail {
   description: string;
   causativeOrganism: string;
   urlPhoto: string;
-  symptoms?: 
-    {
-      id: number;
-      affectedParts: string;
-      description: string
-      symptomProggression: [
-        {
-          description: string;
-          id: number;
-          order: number;
-          stage: string;
-        }
-      ];
-      visualCharacteristic: [];
-    }
-  ;
+  symptoms?: {
+    id: number;
+    affectedParts: string;
+    description: string;
+    symptomProggression: [
+      {
+        description: string;
+        id: number;
+        order: number;
+        stage: string;
+      }
+    ];
+    visualCharacteristic: [];
+  };
   cycle?: {
     id: string;
     environmentalFactors: string;
@@ -90,7 +93,14 @@ export interface DiseaseDetail {
     }
   ];
 }
-
+export interface Recommendation {
+  recommendations: [
+    {
+      product_id: number;
+      score: number;
+    }
+  ];
+}
 // API functions
 export async function fetchAllPlants(): Promise<Plant[]> {
   try {
@@ -111,7 +121,7 @@ export async function fetchDiseasesByPlantId(
   plantId: string
 ): Promise<Disease[]> {
   try {
-    const response = await fetch(
+    const response = await fetch(   
       `${import.meta.env.VITE_API_PATH}/disease/${plantId}`
     );
     const responseBody: ApiResponse<PlantDiseaseData> = await response.json();
@@ -150,16 +160,19 @@ export async function fetchLogin(
   password: string
 ): Promise<Login> {
   try {
-const response = await fetch(`${import.meta.env.VITE_API_PATH}/auth/login`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    email: email,
-    password: password,
-  }),
-});
+    const response = await fetch(
+      `${import.meta.env.VITE_API_PATH}/auth/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      }
+    );
 
     const responseBody: ApiResponse<Login> = await response.json();
     return responseBody.data;
@@ -180,19 +193,21 @@ export async function fetchRegister(
   password: string
 ): Promise<Register> {
   try {
-const response = await fetch(`${import.meta.env.VITE_API_PATH}/auth/register`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    firstname,
-    lastname,
-    email: email,
-    password: password,
-  }),
-});
-
+    const response = await fetch(
+      `${import.meta.env.VITE_API_PATH}/auth/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstname,
+          lastname,
+          email: email,
+          password: password,
+        }),
+      }
+    );
     const responseBody: ApiResponse<Register> = await response.json();
     return responseBody.data;
     // if (!response.ok) {
@@ -205,4 +220,57 @@ const response = await fetch(`${import.meta.env.VITE_API_PATH}/auth/register`, {
   }
 }
 
+export async function recordInteraction(
+  userId: string,
+  productId: number,
+  rating: number,
+  type: "view" | "like" | "purchase"
+): Promise<Interactions> {
+  try {
+    const response = await fetch("http://localhost:5001/api/interactions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: userId,
+        product_id: productId,
+        rating,
+        type,
+      }),
+    });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const responseBody: ApiResponse<Interactions> = await response.json();
+    return responseBody.data; // mengikuti gaya fetchRegister
+  } catch (error) {
+    console.error("[v0] Error recording interaction:", error);
+    throw error; // mengikuti gaya fetchRegister
+  }
+}
+
+export async function getRecommendations(
+  userId: string,
+  method: "user_based" | "item_based" | "hybrid"
+): Promise<Recommendation> {
+  try {
+    const response = await fetch(
+      `http://localhost:5001/api/recommendations/${userId}?method=${method}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  const data: Recommendation = await response.json();
+
+    console.log("DATA JSON:", data);
+    console.log("REKOMENDASI:", data.recommendations);
+
+    return data;
+  } catch (error) {
+    console.error("[v0] Error fetching recommendations:", error);
+    throw error;
+  }
+}

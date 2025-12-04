@@ -12,6 +12,7 @@ import {
   fetchDiseaseDetail,
   type DiseaseDetail as DiseaseDetailType,
 } from "../../lib/api";
+import { Link } from "react-router-dom";
 // import { useParams } from "react-router-dom";
 interface DiseaseDetailProps {
   plantId?: string;
@@ -103,6 +104,33 @@ export const DiseaseDetail: React.FC<DiseaseDetailProps> = ({
   }
   return (
     <div className="mx-auto max-w-5xl px-4 py-8">
+      <Link
+        to={"/product"}
+        className="fixed bottom-5 right-5 z-50 flex items-center gap-2 px-4 py-3 bg-primary text-white font-medium rounded-full shadow-xl hover:scale-105 active:scale-95 transition-all"
+      >
+        {/* Ikon keranjang */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3 3h2l.4 2M7 13h10l3-8H6.4"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M7 13L5.6 6M16 21a1 1 0 11-2 0 1 1 0 012 0zM9 21a1 1 0 11-2 0 1 1 0 012 0z"
+          />
+        </svg>
+
+        <span>Belanja</span>
+      </Link>
       <Breadcrumbs
         items={[
           { label: "Beranda", href: "/" },
@@ -133,40 +161,35 @@ export const DiseaseDetail: React.FC<DiseaseDetailProps> = ({
         </div>
       </header>
 
-{/* content */}
-        <main className="flex flex-col gap-10">
-      <div className="space-y-6">
-        <div>
-          <h2 className="text-lg font-semibold">Galeri Gejala</h2>
-          <GalleryCarousel items={disease.urlPhoto} className="mt-3" />
-        </div>
-        <div className="rounded-xl border bg-card p-5">
-          {/* <h3 className="mb-2 text-base font-semibold">Deskripsi Gejala</h3>
+      {/* content */}
+      <main className="flex flex-col gap-10">
+        <div className="space-y-6">
+          <div>
+            <h2 className="text-lg font-semibold">Galeri Gejala</h2>
+            <GalleryCarousel items={disease.urlPhoto} className="mt-3" />
+          </div>
+          <div className="rounded-xl border bg-card p-5">
+            {/* <h3 className="mb-2 text-base font-semibold">Deskripsi Gejala</h3>
                   <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
                     {disease.symptoms.map((s, i) => (
                       <li key={i}>{s}</li>
                     ))}
                   </ul> */}
-          <div className="mt-4">
-            <h4 className="mb-1 font-semibold">Gejala</h4>
-            <p>{disease.symptoms?.description}</p>
+            <div className="mt-4">
+              <h4 className="mb-1 font-semibold">Gejala</h4>
+              <p>{disease.symptoms?.description}</p>
+            </div>
           </div>
         </div>
-      </div>
 
         <div className="rounded-xl border bg-card p-5">
           <h3 className="mb-2 text-base font-semibold">Siklus & Penyebaran</h3>
-          <p className="text-sm">
-            {disease.cycle?.spreadMethod}
-          </p>
+          <p className="text-sm">{disease.cycle?.spreadMethod}</p>
         </div>
-
 
         <div className="rounded-xl border bg-card p-5">
           <h3 className="mb-2 text-base font-semibold">Kondisi Lingkungan</h3>
-          <p className="text-sm">
-            {disease.cycle?.environmentalFactors}
-          </p>
+          <p className="text-sm">{disease.cycle?.environmentalFactors}</p>
         </div>
         {/* <div className="rounded-xl border bg-card p-5 md:col-span-2">
                   <h3 className="mb-2 text-base font-semibold">Tahap Infeksi</h3>
@@ -177,20 +200,19 @@ export const DiseaseDetail: React.FC<DiseaseDetailProps> = ({
                   </ol>
                 </div> */}
 
-      <div className="space-y-6">
-        <div className="rounded-xl border bg-card p-5">
-          <h3 className="mb-2 text-base font-semibold">
-            Kultur Teknis (Pencegahan)
-          </h3>
-          <ul className="list-disc space-y-1 pl-5 text-sm">
-            {disease.controls?.map((d, i) => (
-              <li key={i}>{d.description}</li>
-            ))}
-          </ul>
+        <div className="space-y-6">
+          <div className="rounded-xl border bg-card p-5">
+            <h3 className="mb-2 text-base font-semibold">
+              Kultur Teknis (Pencegahan)
+            </h3>
+            <ul className="list-disc space-y-1 pl-5 text-sm">
+              {disease.controls?.map((d, i) => (
+                <li key={i}>{d.description}</li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
-
-        </main>
+      </main>
     </div>
   );
 };

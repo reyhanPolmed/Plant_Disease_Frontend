@@ -25,7 +25,21 @@ const HomePage = () => {
   }, []);
 
   if (!plants) {
-    return <div>Loading...</div>;
+    return (
+      <div className="bg-gray-100 p-8">
+        <div className="max-w-6xl mx-auto">
+          <p className="mb-2 text-sm text-gray-500 font-mono">
+            Status: Loading...
+          </p>
+
+          <div className="relative w-full h-[400px] bg-gray-400 rounded-xl overflow-hidden flex flex-col justify-center items-center px-4 animate-pulse">
+            <div className="h-8 md:h-12 bg-gray-600 rounded-full w-11/12 md:w-3/4 max-w-3xl mb-4 opacity-50"></div>
+
+            <div className="h-4 md:h-5 bg-gray-600 rounded-full w-3/4 md:w-1/2 max-w-xl opacity-50"></div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const handlePlantClick = (plantId: number) => {
@@ -33,32 +47,33 @@ const HomePage = () => {
   };
   return (
     <div className="items-center justify-center min-h-screen">
-      <Link to={"/product"}
-      className="fixed bottom-5 right-5 z-50 flex items-center gap-2 px-4 py-3 bg-primary text-white font-medium rounded-full shadow-xl hover:scale-105 active:scale-95 transition-all"
-    >
-      {/* Ikon keranjang */}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth="2"
+      <Link
+        to={"/product"}
+        className="fixed bottom-5 right-5 z-50 flex items-center gap-2 px-4 py-3 bg-primary text-white font-medium rounded-full shadow-xl hover:scale-105 active:scale-95 transition-all"
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M3 3h2l.4 2M7 13h10l3-8H6.4"
-        />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M7 13L5.6 6M16 21a1 1 0 11-2 0 1 1 0 012 0zM9 21a1 1 0 11-2 0 1 1 0 012 0z"
-        />
-      </svg>
+        {/* Ikon keranjang */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3 3h2l.4 2M7 13h10l3-8H6.4"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M7 13L5.6 6M16 21a1 1 0 11-2 0 1 1 0 012 0zM9 21a1 1 0 11-2 0 1 1 0 012 0z"
+          />
+        </svg>
 
-      <span>Belanja</span>
-    </Link>
+        <span>Belanja</span>
+      </Link>
 
       <div>
         <div
@@ -142,40 +157,42 @@ const HomePage = () => {
 
       {/* tanaman section */}
       <div className="p-10">
-      <div className="mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-          Tanaman Saat Ini
-        </h2>
-        <p className="text-muted-foreground">
-          Monitor kesehatan tanaman Anda dan dapatkan rekomendasi perawatan
-        </p>
-      </div>
-      <div className="max-w-full flex flex-wrap justify-between box-border gap-y-8">
-        {plants.map((plant) => (
-          <div
-            onClick={() => handlePlantClick(plant.id)}
-            className="group w-full md:w-[48%] lg:w-[32%] relative overflow-hidden rounded-xl shadow-lg cursor-pointer box-border"
-          >
-            {/* <!-- Gambar Produk sebagai Background --> */}
-            <img
-              src={plant.urlPhoto}
-              alt="Sepatu Lari Merah"
-              className="w-full h-60 lg:h-60 object-cover transform transition-transform duration-500 group-hover:scale-110"
-            />
+        <div className="mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+            Tanaman Saat Ini
+          </h2>
+          <p className="text-muted-foreground">
+            Monitor kesehatan tanaman Anda dan dapatkan rekomendasi perawatan
+          </p>
+        </div>
+        <div className="max-w-full flex flex-wrap justify-between box-border gap-y-8">
+          {plants.map((plant) => (
+            <div
+              onClick={() => handlePlantClick(plant.id)}
+              className="group w-full md:w-[48%] lg:w-[32%] relative overflow-hidden rounded-xl shadow-lg cursor-pointer box-border"
+            >
+              {/* <!-- Gambar Produk sebagai Background --> */}
+              <img
+                src={plant.imageUrl}
+                alt="Sepatu Lari Merah"
+                className="w-full h-60 lg:h-60 object-cover transform transition-transform duration-500 group-hover:scale-110"
+              />
 
-            {/* <!-- Overlay yang Muncul Saat Hover --> */}
-            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300"></div>
+              {/* <!-- Overlay yang Muncul Saat Hover --> */}
+              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300"></div>
 
-            {/* <!-- Konten Teks yang Muncul dari Bawah --> */}
-            <div className="absolute inset-0 flex items-end p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out">
-              <div className="w-full text-center py-4 bg-black bg-opacity-70 rounded-lg">
-                <h3 className="text-xl font-bold text-white">{plant.name}</h3>
-                <p className="text-sm text-gray-300">{plant.scientificName}</p>
+              {/* <!-- Konten Teks yang Muncul dari Bawah --> */}
+              <div className="absolute inset-0 flex items-end p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out">
+                <div className="w-full text-center py-4 bg-black bg-opacity-70 rounded-lg">
+                  <h3 className="text-xl font-bold text-white">{plant.name}</h3>
+                  <p className="text-sm text-gray-300">
+                    {plant.scientificName}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
       </div>
     </div>
   );

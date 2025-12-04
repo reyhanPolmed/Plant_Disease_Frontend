@@ -11,7 +11,7 @@ import {
   getTotals,
   selectTotalAmount,
 } from "../features/cart/CartSlice";
-import tomat from "../assets/cabai.png";
+// import tomat from "../assets/cabai.png";
 import { Link } from "react-router-dom";
 const Cart = () => {
   const dispatch = useDispatch();
@@ -58,7 +58,7 @@ const Cart = () => {
           <div className="flex gap-16 justify-center my-10">
             <div className="">
               <table className="min-w-full border rounded-lg overflow-hidden">
-                <thead className="bg-[#004e1d]">
+                <thead className="bg-green-600">
                   <tr className="text-white font-normal">
                     <th className="px-4 py-2 w-[400px] font-normal">Product</th>
                     <th className="px-4 py-2 w-[150px] font-normal">Price</th>
@@ -79,9 +79,9 @@ const Cart = () => {
                             <RxCross2 />
                           </button>
                           <img
-                            src={tomat}
+                            src={cart.image}
                             alt=""
-                            className="w-[50px] rounded-lg"
+                            className="w-[70px] rounded-lg"
                           />
                           <p className="text-sm">{cart.title}</p>
                         </div>
@@ -114,7 +114,7 @@ const Cart = () => {
                 </tbody>
               </table>
             </div>
-            <div className="w-[300px] h-[400px] border-[1px] border-[#b5bbb2] rounded-lg">
+            <div className="w-[300px] h-[400px] border-[1px] border-[#e9ece7] shadow-md rounded-lg">
               <div className="p-5">
                 <p className="font-bold text-lg">Order Summary</p>
                 <div className="w-full h-[1px] bg-slate-400 my-3"></div>
@@ -145,7 +145,7 @@ const Cart = () => {
                   </div>
                 </div>
                 <div className="w-full h-[1px] bg-slate-400 my-3"></div>
-                <button className="mt-4 w-full h-10 bg-[#004e1d] text-white font-medium text-sm rounded-[50px]">
+                <button className="mt-4 w-full h-10 bg-green-600 text-white font-medium text-sm rounded-[50px]">
                   Proceed To Checkout
                 </button>
               </div>

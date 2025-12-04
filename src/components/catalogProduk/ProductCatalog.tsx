@@ -12,6 +12,7 @@ interface Product {
   price: number;
   unit: string;
   categoryId: number;
+  image: string;
 }
 
 export default function ProductCatalog() {
@@ -85,8 +86,8 @@ export default function ProductCatalog() {
                   onClick={() => setViewMode('grid')}
                   className={`p-2 rounded-lg transition ${
                     viewMode === 'grid'
-                      ? 'bg-teal-600 text-white'
-                      : 'bg-gray-100 text-gray-600 hover:text-teal-600'
+                      ? 'bg-green-600 text-white'
+                      : 'bg-gray-100 text-gray-600 hover:text-green-600'
                   }`}
                   title="Grid View"
                 >
@@ -96,8 +97,8 @@ export default function ProductCatalog() {
                   onClick={() => setViewMode('list')}
                   className={`p-2 rounded-lg transition ${
                     viewMode === 'list'
-                      ? 'bg-teal-600 text-white'
-                      : 'bg-gray-100 text-gray-600 hover:text-teal-600'
+                      ? 'bg-green-600 text-white'
+                      : 'bg-gray-100 text-gray-600 hover:text-green-600'
                   }`}
                   title="List View"
                 >
@@ -160,7 +161,7 @@ export default function ProductCatalog() {
                         onClick={() => handlePageChange(page)}
                         className={`w-10 h-10 rounded-lg transition ${
                           currentPage === page
-                            ? 'bg-teal-600 text-white'
+                            ? 'bg-green-600 text-white'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >
