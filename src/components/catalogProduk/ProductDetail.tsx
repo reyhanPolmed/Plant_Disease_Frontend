@@ -9,8 +9,9 @@ import type { AddToCartPayload } from "@/features/cart/CartSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "@/features/user/AuthSlice";
 import PopupLoginPrompt from "../PopUpLogin";
-import { recordInteraction, getRecommendations } from "../../lib/api";
+import { recordInteraction} from "../../lib/api";
 import ProductRekomendasi from "./ProductRekomendasi";
+import { prefetchRekomendasi } from "@/utils/prefetchRekomendasi";
 interface Product {
   id: number;
   name: string;
@@ -40,6 +41,14 @@ export default function ProductDetailPage() {
   const [isFavorite, setIsFavorite] = useState(false);
   const user = useSelector(selectCurrentUser);
   const [showPopup, setShowPopup] = useState(false);
+
+
+  useEffect(() => {
+    const userId = user?.id as string;
+    prefetchRekomendasi(userId, "hybrid").then((data) => {
+      setRecomendations(data.recommendations);
+    });
+  }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -90,24 +99,24 @@ export default function ProductDetailPage() {
     }
   }, [productId]);
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        if (user) {
-          const userId = user?.id as string;
-          const method = "hybrid";
-          const response = await getRecommendations(userId, method);
+  // useEffect(() => {
+  //   const fetchProduct = async () => {
+  //     try {
+  //       if (user) {
+  //         const userId = user?.id as string;
+  //         const method = "hybrid";
+  //         const response = await getRecommendations(userId, method);
 
-          setRecomendations(response.recommendations);
-        }
-      } catch (error) {
-        console.log("[v0] Error fetching product:", error);
-      }
-    };
-    if (productId) {
-      fetchProduct();
-    }
-  }, []);
+  //         setRecomendations(response.recommendations);
+  //       }
+  //     } catch (error) {
+  //       console.log("[v0] Error fetching product:", error);
+  //     }
+  //   };
+  //   if (productId) {
+  //     fetchProduct();
+  //   }
+  // }, []);
 
   if (loading) {
     return (
@@ -172,7 +181,7 @@ export default function ProductDetailPage() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <main className="flex-1 py-8">
-        <div className="container mx-auto px-4 max-w-6xl">
+        <div className="container mx-auto px-12">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-sm mb-8">
             <button
@@ -376,11 +385,9 @@ export default function ProductDetailPage() {
               </ul>
             </div>
           </div>
-        </div>
-      </main>
-      <div className="bg-gradient-to-br  rounded-lg p-6 mb-8">
+          <div className="bg-gradient-to-br  rounded-lg mb-8 mt-6 ">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold text-gray-800">
+          <h2 className="text-lg font-bold text-gray-800">
            Rekomendasi Untuk Anda
           </h2>
         </div>                                          
@@ -391,7 +398,7 @@ export default function ProductDetailPage() {
             untuk mendapatkan rekomendasi personal.
           </p>
         ) : (
-          <div className="flex justify-evenly">
+          <div className="flex justify-between">
             {recommendations.map((rec) => {
               const matchingProduct = products.find(
                 (p) => p.id === rec.product_id
@@ -410,6 +417,9 @@ export default function ProductDetailPage() {
           </div>
         )}
       </div>
+        </div>
+      </main>
+      
       <div>
         {showPopup && <PopupLoginPrompt onClose={() => setShowPopup(false)} />}
       </div>

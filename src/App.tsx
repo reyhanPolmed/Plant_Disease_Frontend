@@ -9,6 +9,9 @@ import RequireAuth from "./components/RequireAuth";
 import Cart from "./pages/Cart.";
 import ProductCatalog from "./components/catalogProduk/ProductCatalog";
 import ProductDetailPage from "./components/catalogProduk/ProductDetail";
+import Checkout from "./pages/Checkout";
+import PaymentPending from "./pages/PaymentPending";
+import PaymentConfirmation from "./pages/PaymentConfirm";
 function App() {
   return (
     <Router>
@@ -30,6 +33,9 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/product" element={<ProductCatalog />} />
             <Route path="/products/:productId" element={<ProductDetailPage />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/payment-pending" element={<PaymentPending />} />
+            <Route path="/konfirmasi-pembayaran" element={<PaymentConfirmation />} />
           </Route>
         </Route>
       </Routes>

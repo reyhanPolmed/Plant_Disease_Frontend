@@ -21,7 +21,7 @@ const ProductRekomendasi: React.FC<ProductRekomendasiProps> = ({ product, score 
   return (
     <div className="w-[19%] flex flex-col justify-between shadow-md border-[1px] border-slate-300 bg-white rounded-lg p-4 hover:shadow-lg transition duration-300">
       {/* Gambar Produk */}
-      <div className="w-full h-40 bg-gray-100 rounded-md overflow-hidden">
+      <div className="w-full h-36 bg-gray-100 rounded-md overflow-hidden">
         <img
           src={product.image}
           alt={product.name}
@@ -30,12 +30,12 @@ const ProductRekomendasi: React.FC<ProductRekomendasiProps> = ({ product, score 
       </div>
 
       {/* Nama Produk */}
-      <h3 className="mt-3 font-semibold text-gray-800 text-lg">
+      <h3 className="mt-3 font-semibold text-gray-800 text-sm">
         {product.name}
       </h3>
 
       {/* Harga */}
-      <p className="text-gray-600 text-sm">Rp {product.price.toLocaleString()}</p>
+      <p className="text-gray-600 text-xs">Rp {product.price.toLocaleString()}</p>
 
       {/* Score rekomendasi */}
       {score !== undefined && (
@@ -45,7 +45,7 @@ const ProductRekomendasi: React.FC<ProductRekomendasiProps> = ({ product, score 
       )}
 
       {/* Tombol Aksi */}
-      <button className="mt-3 w-full bg-green-700 text-white py-2 rounded-md hover:bg-green-600 transition">
+      <button className="mt-3 text-xs w-full bg-green-700 text-white py-2 rounded-md hover:bg-green-600 transition">
         Lihat Produk
       </button>
     </div>

@@ -27,11 +27,7 @@ const HomePage = () => {
   if (!plants) {
     return (
       <div className="bg-gray-100 p-8">
-        <div className="max-w-6xl mx-auto">
-          <p className="mb-2 text-sm text-gray-500 font-mono">
-            Status: Loading...
-          </p>
-
+        <div className="max-w-6xl mx-auto h-screen">
           <div className="relative w-full h-[400px] bg-gray-400 rounded-xl overflow-hidden flex flex-col justify-center items-center px-4 animate-pulse">
             <div className="h-8 md:h-12 bg-gray-600 rounded-full w-11/12 md:w-3/4 max-w-3xl mb-4 opacity-50"></div>
 

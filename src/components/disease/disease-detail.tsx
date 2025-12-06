@@ -191,14 +191,6 @@ export const DiseaseDetail: React.FC<DiseaseDetailProps> = ({
           <h3 className="mb-2 text-base font-semibold">Kondisi Lingkungan</h3>
           <p className="text-sm">{disease.cycle?.environmentalFactors}</p>
         </div>
-        {/* <div className="rounded-xl border bg-card p-5 md:col-span-2">
-                  <h3 className="mb-2 text-base font-semibold">Tahap Infeksi</h3>
-                  <ol className="list-decimal space-y-1 pl-5 text-sm text-muted-foreground">
-                    {disease.cycle?.infectionStage.map((e, i) => (
-                      <li key={i}>{e.stage}: {e.description}</li>
-                    ))}
-                  </ol>
-                </div> */}
 
         <div className="space-y-6">
           <div className="rounded-xl border bg-card p-5">

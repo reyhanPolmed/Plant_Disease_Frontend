@@ -1,8 +1,9 @@
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import type { CartItem } from "../features/cart/CartSlice";
+
 import {
   addToCart,
   decreaseCart,
@@ -17,6 +18,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const cart = useSelector(selectAllItems);
   const cartTotalAmount = useSelector(selectTotalAmount);
+  const navigate = useNavigate()
   console.log(cartTotalAmount);
   useEffect(() => {
     dispatch(getTotals());
@@ -42,6 +44,9 @@ const Cart = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  const handleCheckout = () => {
+    navigate('/checkout')
+  }
   return (
     <>
       {cart.length === 0 ? (
@@ -145,7 +150,7 @@ const Cart = () => {
                   </div>
                 </div>
                 <div className="w-full h-[1px] bg-slate-400 my-3"></div>
-                <button className="mt-4 w-full h-10 bg-green-600 text-white font-medium text-sm rounded-[50px]">
+                <button onClick={handleCheckout} className="mt-4 w-full h-10 bg-green-600 text-white font-medium text-sm rounded-[50px]">
                   Proceed To Checkout
                 </button>
               </div>
