@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; // Pastikan routing sesuai setup project Anda
 import { Breadcrumbs } from "./breadcrumbs";
-import { GalleryCarousel } from "./gallery-carousel";
+// import { GalleryCarousel } from "./gallery-carousel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge"; // Pastikan komponen ini ada
 import { fetchDiseaseDetail } from "../../lib/api";
@@ -15,12 +15,12 @@ interface ControlStep {
 }
 
 interface DiseaseDetailType {
-  id: string;
+  id: number;
   localName: string;
   scientificName: string; // Nama ilmiah inang/penyakit
   causativeOrganism: string; // Patogen
   description: string;
-  urlPhoto: string[]; // Array URL gambar
+  urlPhoto: string; // Array URL gambar
   symptoms: {
     description: string;
   };
@@ -164,7 +164,7 @@ export const DiseaseDetail: React.FC<DiseaseDetailProps> = ({
           
           {/* Gallery Section */}
           <section className="rounded-2xl overflow-hidden border bg-card shadow-sm">
-             <GalleryCarousel items={disease.urlPhoto} className="w-full aspect-video object-cover" />
+            <img src={disease.urlPhoto} alt="" className="w-full aspect-video object-cover"/>
           </section>
 
           {/* Symptoms Section */}

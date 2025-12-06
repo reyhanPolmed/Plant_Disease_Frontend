@@ -37,62 +37,31 @@ export interface Disease {
   scientificName: string;
   description: string;
   causativeOrganism: string;
-  urlPhoto: string;
+  imageUrl: string;
+}
+
+interface ControlStep {
+  id: number;
+  description: string;
 }
 
 export interface DiseaseDetail {
   id: number;
   localName: string;
-  scientificName: string;
+  scientificName: string; // Nama ilmiah inang/penyakit
+  causativeOrganism: string; // Patogen
   description: string;
-  causativeOrganism: string;
-  urlPhoto: string;
-  symptoms?: {
-    id: number;
-    affectedParts: string;
+  imageUrl: string; // Array URL gambar
+  symptoms: {
     description: string;
-    symptomProggression: [
-      {
-        description: string;
-        id: number;
-        order: number;
-        stage: string;
-      }
-    ];
-    visualCharacteristic: [];
   };
-  cycle?: {
-    id: string;
-    environmentalFactors: string;
+  cycle: {
     spreadMethod: string;
-    infectionStage: [
-      {
-        description: string;
-        stage: string;
-        fieldRecognitionSteps: string;
-        id: number;
-        order: number;
-      }
-    ];
+    environmentalFactors: string;
   };
-  diagnosis?: [
-    {
-      description: string;
-      fieldRecognitionSteps: string;
-      id: number;
-      order: number;
-    }
-  ];
-  controls?: [
-    {
-      controlType: string;
-      description: string;
-      effectiveness: string;
-      id: number;
-      method: string;
-    }
-  ];
+  controls: ControlStep[];
 }
+
 export interface Recommendation {
   recommendations: [
     {

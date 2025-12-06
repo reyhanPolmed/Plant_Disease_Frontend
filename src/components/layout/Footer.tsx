@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
     // PERUBAHAN UTAMA:
     // 1. bg-gradient-to-br: Arah gradasi diagonal (kiri atas ke kanan bawah)
     // 2. from-green-900 via-emerald-700 to-green-500: Gradasi dari hijau gelap hutan, ke emerald, lalu ke hijau daun terang.
-    <footer className="bg-gradient-to-br from-green-900 via-emerald-700 to-green-500 text-white  pt-8 pb-4 px-8 bebas-neue neobrutalism-border relative overflow-hidden">
+    <footer className="bg-gradient-to-br from-green-900 via-emerald-700 to-green-500 text-white  pt-8 pb-4 px-8 bebas-neue neobrutalism-border relative overflow-hidden z-0">
         
         {/* Dekorasi Visual (Opsional): Efek cahaya halus di pojok */}
         <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white opacity-10 blur-3xl rounded-full pointer-events-none"></div>

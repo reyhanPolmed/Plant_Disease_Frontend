@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { fetchDiseasesByPlantId, type Disease } from "../lib/api";
+import { Link } from "react-router-dom";
 
 const CardDisease = () => {
   const { plantId } = useParams();
@@ -87,6 +88,33 @@ const CardDisease = () => {
     <div className="bg-background-light dark:bg-background-dark font-display text-foreground-light dark:text-foreground-dark">
       <div className="flex flex-col min-h-screen">
         <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <Link
+            to={"/product"}
+            className="fixed bottom-5 right-5 z-50 flex items-center gap-2 px-4 py-3 bg-primary text-white font-medium rounded-full shadow-xl hover:scale-105 active:scale-95 transition-all"
+          >
+            {/* Ikon keranjang */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 3h2l.4 2M7 13h10l3-8H6.4"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M7 13L5.6 6M16 21a1 1 0 11-2 0 1 1 0 012 0zM9 21a1 1 0 11-2 0 1 1 0 012 0z"
+              />
+            </svg>
+
+            <span>Belanja</span>
+          </Link>
           <div className="max-w-5xl mx-auto">
             <div className="mb-8 text-center">
               <h1 className="text-4xl font-bold tracking-tight mb-2">
@@ -117,7 +145,7 @@ const CardDisease = () => {
                     <div
                       className="w-full h-40 bg-center bg-no-repeat bg-cover"
                       style={{
-                        backgroundImage: `url(${disease.urlPhoto})`,
+                        backgroundImage: `url(${disease.imageUrl})`,
                       }}
                     ></div>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
@@ -128,7 +156,9 @@ const CardDisease = () => {
                     </div>
                   </div>
                   <div className="p-4 flex-grow">
-                    <h3 className="text-md font-bold mb-1">{disease.localName}</h3>
+                    <h3 className="text-md font-bold mb-1">
+                      {disease.localName}
+                    </h3>
                     <p className="text-sm text-muted-light dark:text-muted-dark line-clamp-3">
                       {disease.description}
                     </p>

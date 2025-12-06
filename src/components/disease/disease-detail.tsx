@@ -2,7 +2,7 @@
 import { Breadcrumbs } from "./breadcrumbs";
 // import { DetailTabs } from "./detail-tabs"
 import React from "react";
-import { GalleryCarousel } from "./gallery-carousel";
+// import { GalleryCarousel } from "./gallery-carousel";
 // import type { Disease } from "../../data/Diseases"
 
 import { useEffect, useState } from "react";
@@ -164,10 +164,12 @@ export const DiseaseDetail: React.FC<DiseaseDetailProps> = ({
       {/* content */}
       <main className="flex flex-col gap-10">
         <div className="space-y-6">
-          <div>
-            <h2 className="text-lg font-semibold">Galeri Gejala</h2>
-            <GalleryCarousel items={disease.urlPhoto} className="mt-3" />
-          </div>
+            <img
+              src={disease.imageUrl}
+              alt="Sepatu Lari Merah"
+              className="w-full h-60 lg:h-[500px] object-cover transform transition-transform duration-500 group-hover:scale-110"
+            />
+
           <div className="rounded-xl border bg-card p-5">
             {/* <h3 className="mb-2 text-base font-semibold">Deskripsi Gejala</h3>
                   <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">

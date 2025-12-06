@@ -280,11 +280,11 @@ export default function DiseaseDetail() {
             <h4 className="font-semibold text-foreground mb-2">
               Pengenalan di Lapangan:
             </h4>
-            <p className="text-muted-foreground">
+            {/* <p className="text-muted-foreground">
               {disease.diagnosis?.map((diagnosis) => (
                 <h1>{diagnosis.fieldRecognitionSteps}</h1>
               ))}
-            </p>
+            </p> */}
           </div>
           <div>
             <h4 className="font-semibold text-foreground mb-2">

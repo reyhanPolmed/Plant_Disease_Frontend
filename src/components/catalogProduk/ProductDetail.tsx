@@ -209,7 +209,7 @@ export default function ProductDetailPage() {
               </div>
 
               {/* Thumbnail Gallery */}
-              <div className="grid grid-cols-4 gap-3">
+              {/* <div className="grid grid-cols-4 gap-3">
                 {[1, 2, 3, 4].map((index) => (
                   <div
                     key={index}
@@ -226,7 +226,7 @@ export default function ProductDetailPage() {
                     />
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
 
             {/* Right: Product Info */}
@@ -259,10 +259,7 @@ export default function ProductDetailPage() {
               <div className="bg-green-50 rounded-lg p-5 border border-green-100">
                 <div className="flex items-baseline gap-2 mb-4">
                   <span className="text-4xl font-bold text-gray-900">
-                    ${parseFloat(String(product.price)).toFixed(2)}
-                  </span>
-                  <span className="text-gray-600 text-lg">
-                    / {product.unit}
+                    Rp {parseFloat(String(product.price)).toFixed(2)}
                   </span>
                 </div>
 

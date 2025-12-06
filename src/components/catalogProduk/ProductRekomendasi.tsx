@@ -1,4 +1,7 @@
 import React from "react";
+// import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+// import { useEffect } from "react";
 interface Product {
   id: number;
   name: string;
@@ -18,6 +21,11 @@ interface ProductRekomendasiProps {
 }
 
 const ProductRekomendasi: React.FC<ProductRekomendasiProps> = ({ product, score }) => {
+  const navigate = useNavigate()
+  const handleViewDetail = () => {
+    navigate(`/products/${product.id}`)
+        window.scrollTo(0, 0);
+  }
   return (
     <div className="w-[19%] flex flex-col justify-between shadow-md border-[1px] border-slate-300 bg-white rounded-lg p-4 hover:shadow-lg transition duration-300">
       {/* Gambar Produk */}
@@ -45,7 +53,8 @@ const ProductRekomendasi: React.FC<ProductRekomendasiProps> = ({ product, score 
       )}
 
       {/* Tombol Aksi */}
-      <button className="mt-3 text-xs w-full bg-green-700 text-white py-2 rounded-md hover:bg-green-600 transition">
+
+      <button onClick={handleViewDetail} className="mt-3 text-xs w-full bg-green-700 text-white py-2 rounded-md hover:bg-green-600 transition">
         Lihat Produk
       </button>
     </div>
