@@ -3,7 +3,7 @@ import type { RootState } from "../store";
 // Define the types for your state
 interface User {
     id: string; 
-    firstName: string | null;
+    first_name: string | null;
 }
 
 interface AuthState {

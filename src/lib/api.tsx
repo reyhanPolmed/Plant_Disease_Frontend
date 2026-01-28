@@ -4,6 +4,75 @@ export interface ApiResponse<T> {
   success: boolean;
   data: T;
 }
+
+export interface ApiResponseCart<T> {
+  message: string;
+  cartItem: T;
+}
+export interface ApiResponseOrder<T> {
+  message: string;
+  order: T;
+}
+
+export interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: string; // string karena dari API "1500.00"
+  stock: number;
+  image: string;
+  unit: string | null;
+  rating: number;
+  category: string;
+  createdAt: string | null;
+  updatedAt: string | null;
+}
+
+export interface CartItem {
+  id: number;
+  userId: number;
+  productId: number;
+  quantity: number;
+  products: Product;
+}
+
+export interface OrderItem {
+  id: number;
+  orderId: number;
+  productId: number;
+  quantity: number;
+  price: string;
+  products: Product;
+}
+
+export type OrderStatus =
+  | "pending"
+  | "paid"
+  | "shipped"
+  | "completed"
+  | "cancelled";
+
+export type Orders<T> = {
+  id: number;
+  userId: number;
+  totalAmount: string;
+  status: OrderStatus;
+  shippingAddress: string;
+  paymentMethod: string;
+  createdAt: string;
+  updatedAt: string;
+  items: T;
+};
+
+export type AllOrder<T> = {
+  orders: Orders<T>[];
+};
+
+
+export interface Response {
+  response: string;
+}
+
 export interface PlantDiseaseData {
   plant: Plant;
   diseases: Disease[];
@@ -15,15 +84,26 @@ export interface Plant {
   description: string;
   imageUrl: string;
 }
-
+interface User {
+  id: string;
+  first_name: string | null;
+}
 export interface Login {
-  user: string;
+  user: User;
   token: string;
 }
 
 export interface Register {
   user: string;
   token: string;
+}
+export interface AddToCart {
+  productId: number;
+  quantity: number;
+}
+export interface RemoveCart {
+  cartItem: number;
+  userId: number;
 }
 
 export interface Interactions {
@@ -70,6 +150,40 @@ export interface Recommendation {
     }
   ];
 }
+
+export interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  stock: number;
+  image: string;
+  unit: string | null;
+  rating: number;
+  category: string;
+}
+
+// Order Item
+
+// Order
+export interface Order {
+  id: number;
+  userId: number;
+  totalAmount: string;
+  status: "pending" | "paid" | "shipped" | "completed" | "cancelled";
+  shippingAddress: string;
+  paymentMethod: string;
+  createdAt: string;
+  updatedAt: string;
+  items: OrderItem[];
+}
+
+// API Response
+export interface CreateOrderResponse {
+  message: string;
+  order: Order;
+}
+
 // API functions
 export async function fetchAllPlants(): Promise<Plant[]> {
   try {
@@ -90,7 +204,7 @@ export async function fetchDiseasesByPlantId(
   plantId: string
 ): Promise<Disease[]> {
   try {
-    const response = await fetch(   
+    const response = await fetch(
       `${import.meta.env.VITE_API_PATH}/disease/${plantId}`
     );
     const responseBody: ApiResponse<PlantDiseaseData> = await response.json();
@@ -232,7 +346,7 @@ export async function getRecommendations(
         },
       }
     );
-  const data: Recommendation = await response.json();
+    const data: Recommendation = await response.json();
 
     console.log("DATA JSON:", data);
     console.log("REKOMENDASI:", data.recommendations);
@@ -240,6 +354,117 @@ export async function getRecommendations(
     return data;
   } catch (error) {
     console.error("[v0] Error fetching recommendations:", error);
+    throw error;
+  }
+}
+
+export async function fetchAddToCart(
+  productId: number,
+  quantity: number
+): Promise<AddToCart> {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_PATH}/cart/1`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        productId,
+        quantity,
+      }),
+    });
+    const responseBody: ApiResponseCart<CartItem> = await response.json();
+    return responseBody.cartItem;
+    // if (!response.ok) {
+    //   throw new Error(`HTTP error! status: ${response.status}`);
+    // }
+    return await response.json();
+  } catch (error) {
+    console.error("Error searching diseases:", error);
+    throw error;
+  }
+}
+
+export async function fetchDeleteCart(
+  cartItem: number,
+  userId: number
+): Promise<Response> {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_PATH}/cart/${cartItem}/${userId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const responseBody: Response = await response.json();
+    return responseBody;
+    // if (!response.ok) {
+    //   throw new Error(`HTTP error! status: ${response.status}`);
+    // }
+    return await response.json();
+  } catch (error) {
+    console.error("Error searching diseases:", error);
+    throw error;
+  }
+}
+
+export async function fetchCreatOrder(
+  shippingAddress: string,
+  paymentMethod: string,
+  userId: number
+): Promise<CreateOrderResponse> {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_PATH}/orders/${userId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          shippingAddress,
+          paymentMethod,
+        }),
+      }
+    );
+    const responseBody: ApiResponseOrder<CreateOrderResponse> =
+      await response.json();
+    return responseBody.order;
+    // if (!response.ok) {
+    //   throw new Error(`HTTP error! status: ${response.status}`);
+    // }
+    return await response.json();
+  } catch (error) {
+    console.error("Error searching diseases:", error);
+    throw error;
+  }
+}
+
+export async function fetchAllOrder(
+  userId: number
+): Promise<AllOrder<OrderItem[]>>{
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_PATH}/orders/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const responseBody = await response.json();
+    return responseBody;
+  } catch (error) {
+    console.error("Error fetching orders:", error);
     throw error;
   }
 }

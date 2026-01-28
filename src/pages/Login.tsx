@@ -23,7 +23,10 @@ const Login = () => {
     const responseBody = await response;
     console.log("response", responseBody);
     if (responseBody) {
+      console.log("responsebody" + responseBody)
       dispatch(setCredential({ ...responseBody }));
+      localStorage.setItem("token", responseBody.token)
+      localStorage.setItem("user", JSON.stringify(responseBody.user.first_name))
       setOpen(true);
       setTimeout(() => {
         navigate("/");

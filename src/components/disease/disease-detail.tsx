@@ -162,40 +162,39 @@ export const DiseaseDetail: React.FC<DiseaseDetailProps> = ({
       </header>
 
       {/* content */}
-      <main className="flex flex-col gap-10">
+      <main className="flex flex-col gap-4">
         <div className="space-y-6">
             <img
               src={disease.imageUrl}
               alt="Sepatu Lari Merah"
               className="w-full h-60 lg:h-[500px] object-cover transform transition-transform duration-500 group-hover:scale-110"
             />
-
-          <div className="rounded-xl border bg-card p-5">
+          <div className="rounded-xl  bg-card p-5">
             {/* <h3 className="mb-2 text-base font-semibold">Deskripsi Gejala</h3>
                   <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
                     {disease.symptoms.map((s, i) => (
                       <li key={i}>{s}</li>
                     ))}
                   </ul> */}
-            <div className="mt-4">
-              <h4 className="mb-1 font-semibold">Gejala</h4>
+            <div className="">
+              <h4 className="mb-6 font-semibold">Gejala</h4>
               <p>{disease.symptoms?.description}</p>
             </div>
           </div>
         </div>
-
-        <div className="rounded-xl border bg-card p-5">
-          <h3 className="mb-2 text-base font-semibold">Siklus & Penyebaran</h3>
+          <div className="w-full h-[1px] bg-slate-400"></div>
+        <div className="rounded-xl  bg-card p-5">
+          <h3 className="mb-6 text-base font-semibold">Siklus & Penyebaran</h3>
           <p className="text-sm">{disease.cycle?.spreadMethod}</p>
         </div>
-
-        <div className="rounded-xl border bg-card p-5">
-          <h3 className="mb-2 text-base font-semibold">Kondisi Lingkungan</h3>
+          <div className="w-full h-[1px] bg-slate-400"></div>
+        <div className="rounded-xl  bg-card p-5">
+          <h3 className="mb-6 text-base font-semibold">Kondisi Lingkungan</h3>
           <p className="text-sm">{disease.cycle?.environmentalFactors}</p>
         </div>
 
-        <div className="space-y-6">
-          <div className="rounded-xl border bg-card p-5">
+        {/* <div className="space-y-6">
+          <div className="rounded-xl  bg-card p-5">
             <h3 className="mb-2 text-base font-semibold">
               Kultur Teknis (Pencegahan)
             </h3>
@@ -205,7 +204,7 @@ export const DiseaseDetail: React.FC<DiseaseDetailProps> = ({
               ))}
             </ul>
           </div>
-        </div>
+        </div> */}
       </main>
     </div>
   );

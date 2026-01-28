@@ -9,9 +9,10 @@ import type { AddToCartPayload } from "@/features/cart/CartSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "@/features/user/AuthSlice";
 import PopupLoginPrompt from "../PopUpLogin";
-import { recordInteraction} from "../../lib/api";
+import { fetchAddToCart, recordInteraction} from "../../lib/api";
 import ProductRekomendasi from "./ProductRekomendasi";
 import { prefetchRekomendasi } from "@/utils/prefetchRekomendasi";
+import PopupAddToChart from "../PopupAddToChart";
 interface Product {
   id: number;
   name: string;
@@ -41,7 +42,7 @@ export default function ProductDetailPage() {
   const [isFavorite, setIsFavorite] = useState(false);
   const user = useSelector(selectCurrentUser);
   const [showPopup, setShowPopup] = useState(false);
-
+  const [popupChart, setPopupChart] = useState(false);
 
   useEffect(() => {
     const userId = user?.id as string;
@@ -150,20 +151,24 @@ export default function ProductDetailPage() {
       // Dispatch a Redux action here to update the cart state.
       // ...
       if (user) {
-        const userId = user?.id as string;
-        const rating = 2;
-        const tipe: "view" | "like" | "purchase" = "view";
-        const response = await recordInteraction(
-          userId,
-          Number(productId),
-          rating,
-          tipe
-        );
-        console.log(response);
+        // const userId = user?.id as string;
+        // const rating = 2;
+        // const tipe: "view" | "like" | "purchase" = "view";
+        // const response = await recordInteraction(
+        //   userId,
+        //   Number(productId),
+        //   rating,
+        //   tipe
+        // );
+        // console.log(response);
         dispatch(addToCart(cartItem));
+        const responseCart = await fetchAddToCart(Number(productId), quantity);
+        const responseBody = await responseCart;
+        console.log("cart" + responseBody)
+        setPopupChart(true)
         setShowPopup(false);
-        navigate("/cart");
       } else {
+        setPopupChart(false)
         setShowPopup(true);
       }
     } catch (error) {
@@ -357,29 +362,8 @@ export default function ProductDetailPage() {
                 Product Description
               </h3>
               <p className="text-gray-700 leading-relaxed mb-4">
-                {product.description} - This is a premium agricultural product
-                carefully selected for professional farmers and growers. Our
-                commitment to quality ensures you receive only the finest seeds
-                and materials.
+                {product.description} - Ini adalah produk pertanian premium yang dipilih secara cermat oleh petani dan penanam profesional. Komitmen kami terhadap kualitas memastikan Anda hanya menerima benih dan bahan terbaik.
               </p>
-              <ul className="space-y-2 text-gray-700">
-                <li>
-                  <strong>High Yield Potential:</strong> Genetically optimized
-                  for maximum grain output per acre.
-                </li>
-                <li>
-                  <strong>Drought Resistance:</strong> Maintains performance
-                  during periods of low rainfall.
-                </li>
-                <li>
-                  <strong>Strong Stalks:</strong> Excellent standability and
-                  lodging resistance for an easier harvest.
-                </li>
-                <li>
-                  <strong>Disease Tolerance:</strong> Built-in resistance to
-                  common crop diseases, reducing the need for fungicides.
-                </li>
-              </ul>
             </div>
           </div>
           <div className="bg-gradient-to-br  rounded-lg mb-8 mt-6 ">
@@ -418,6 +402,7 @@ export default function ProductDetailPage() {
       </main>
       
       <div>
+        {popupChart && <PopupAddToChart product={product} onClose={() => setPopupChart(false)}/>}
         {showPopup && <PopupLoginPrompt onClose={() => setShowPopup(false)} />}
       </div>
     </div>

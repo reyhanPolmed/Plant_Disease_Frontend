@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { logOut } from "@/features/user/AuthSlice";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 type PopupLogoutPromptProps = {
   onOpen: () => void;
 };
@@ -39,11 +40,16 @@ export default function AvatarMenu({ onOpen }: PopupLogoutPromptProps) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="w-40" align="end">
-        <DropdownMenuLabel>{user?.firstName}</DropdownMenuLabel>
+        <DropdownMenuLabel>{user?.first_name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => console.log("Profile clicked")}>
           <button className="w-full h-full text-left">Profile</button>
         </DropdownMenuItem>
+        <Link to={'/pesanan-saya'}>
+        <DropdownMenuItem>
+          <button className="w-full h-full text-left">Pesanan saya</button>
+        </DropdownMenuItem>
+        </Link>
         <DropdownMenuItem onClick={handleLogout}>
           <button className="w-full h-full text-left">Logout</button>
         </DropdownMenuItem>

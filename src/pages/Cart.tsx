@@ -14,7 +14,10 @@ import {
 } from "../features/cart/CartSlice";
 // import tomat from "../assets/cabai.png";
 import { Link } from "react-router-dom";
+import { fetchDeleteCart } from "@/lib/api";
+import { selectCurrentUser } from "@/features/user/AuthSlice";
 const Cart = () => {
+    const user = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
   const cart = useSelector(selectAllItems);
   const cartTotalAmount = useSelector(selectTotalAmount);
@@ -24,8 +27,14 @@ const Cart = () => {
     dispatch(getTotals());
   }, [cart]);
 
-  const handleRemoveFromCart = (cart: CartItem) => {
+  const handleRemoveFromCart = async (cart: CartItem) => {
+        const cartItem = cart.id
+        const userId = user?.id
+        const responseCart = await fetchDeleteCart(Number(cartItem), Number(userId));
+        const responseBody = await responseCart;
+        console.log("cart" + responseBody)
     dispatch(removeFromCart(cart));
+    
   };
 
   const handleDecreaseCart = (cart: CartItem) => {

@@ -1,9 +1,12 @@
+import { fetchCreatOrder } from "@/lib/api";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Ganti Link dengan useNavigate
-
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "@/features/user/AuthSlice";
 const Checkout = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+      const user = useSelector(selectCurrentUser);
   // 1. STATE UNTUK MENAMPUNG DATA FORM
   const [formData, setFormData] = useState({
     firstName: "",
@@ -17,17 +20,21 @@ const Checkout = () => {
   });
 
   // 2. FUNCTION UNTUK MENGUBAH STATE SAAT USER MENGETIK
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData, // Copy data lama
-      [name]: value, // Update data yang sedang diketik
-    });
-  };
+const handleChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+) => {
+  const { name, value } = e.target;
+
+  setFormData({
+    ...formData,
+    [name]: value,
+  });
+};
+
 
   // 3. FUNCTION SAAT TOMBOL PESAN DITEKAN
-  const handleCheckout = async (e) => {
-    e.preventDefault(); // Mencegah reload halaman
+  const handleCheckout = async () => { 
+    // Mencegah reload halaman
 
     // Validasi sederhana (Wajib isi nama)
     if (!formData.firstName || !formData.lastName || !formData.phoneNumber) {
@@ -37,6 +44,14 @@ const Checkout = () => {
     setIsLoading(true);
     try {
       // Kita pakai setTimeout untuk meniru delay internet
+      const shippingAddres = formData.fullAddress
+      const paymentMethod = formData.paymentMethod
+      console.log("shipping" + shippingAddres)
+      console.log("payment" + paymentMethod)
+      const userId = user?.id
+      const responseCart = await fetchCreatOrder(shippingAddres,paymentMethod, Number(userId));
+      const responseBody = await responseCart;
+      console.log("response" + responseBody)
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       console.log("SUKSES! Data berhasil dikirim ke dapur:", formData);

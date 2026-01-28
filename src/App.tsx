@@ -6,12 +6,14 @@ import Layout from "./components/layout/Layout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import RequireAuth from "./components/RequireAuth";
-import Cart from "./pages/Cart.";
+import Cart from "./pages/Cart";
 import ProductCatalog from "./components/catalogProduk/ProductCatalog";
 import ProductDetailPage from "./components/catalogProduk/ProductDetail";
 import Checkout from "./pages/Checkout";
 import PaymentPending from "./pages/PaymentPending";
 import PaymentConfirmation from "./pages/PaymentConfirm";
+// import TranckingOrder from "./pages/TranckingOrder";
+import OrderHistory from "./pages/OrderHistory";
 function App() {
   return (
     <Router>
@@ -36,6 +38,7 @@ function App() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/payment-pending" element={<PaymentPending />} />
             <Route path="/konfirmasi-pembayaran" element={<PaymentConfirmation />} />
+            <Route path="/pesanan-saya" element={<OrderHistory />} />
           </Route>
         </Route>
       </Routes>
